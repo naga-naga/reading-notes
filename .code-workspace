@@ -1,0 +1,24 @@
+{
+  "folders": [
+    {
+      "name": "reading-notes",
+      "path": ".",
+    },
+    {
+      "name": "Introduction_to_Ruby_programming_for_future_professionals_2nd_edition",
+      "path": "./Introduction_to_Ruby_programming_for_future_professionals_2nd_edition",
+    },
+  ],
+  "settings": {
+    "files.exclude": {
+      "Introduction_to_Ruby_programming_for_future_professionals_2nd_edition": true
+    },
+    "rubyLsp.formatter": "rubocop",
+    "rubyLsp.rubyVersionManager": {
+      "identifier": "rbenv"
+    },
+    "[ruby]": {
+      "editor.defaultFormatter": "Shopify.ruby-lsp",
+    }
+  },
+}
