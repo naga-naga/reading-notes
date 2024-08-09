@@ -79,3 +79,25 @@ end
 greet_arity do |text1, text2|
   text1 * 2 + text2 * 2
 end
+
+puts '---'
+def generate_proc(array)
+  counter = 0
+
+  proc do
+    counter += 10
+    array << counter
+  end
+end
+
+values = []
+sample_proc = generate_proc(values)
+
+puts "1: #{values}"
+sample_proc.call
+puts "2: #{values}"
+sample_proc.call
+sample_proc.call
+puts "3: #{values}"
+sample_proc.call
+puts "4: #{values}"
