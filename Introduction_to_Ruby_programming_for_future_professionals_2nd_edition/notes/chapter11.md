@@ -1,0 +1,45 @@
+## パターンマッチ
+- リファレンス
+  - https://docs.ruby-lang.org/ja/latest/doc/spec=2fpattern_matching.html
+- `case/in`
+  - `in` の後にパターンを書く
+  - 配列の場合
+    - `in [a, b, c]` のようにマッチさせる
+  - ハッシュの場合
+    - `in { name:, age: }` のようにマッチできる
+    - この場合は `:name` と `:age` をキーに持っているとマッチする
+    - 変数名も指定できるが、省略でよさそう
+      - 同名の変数に入る
+      - `puts name` みたいに使える
+  - マッチ漏れがあると例外を吐く
+  - ピン演算子 `^`
+    - 変数の中の値にマッチさせたいときに使う
+    - `alice = 'Alice'; case ... in ^alice`
+  - 使わないものはアンダースコアに入れられる
+    - `case[1, 2, 3]; in [_, _, 3]`
+  - アスタリスクで任意の個数にマッチ
+    - `case [1, 2, 3, 4, 5]; in [1, *rest]`
+    - 使わないなら変数に入れなくてもよい
+      - `case [1, 2, 3, 4, 5]; in [1, *]`
+    - アスタリスクもなくてよい
+      - `case [1, 2, 3, 4, 5]; in [1, ]`
+  - アスタリスク2つで、ハッシュの任意のキーと値にマッチ
+    - `case { name: 'Alice', age: 20, gender: :female }; in { name: 'Alice', **rest }`
+    - 最後にしか書けない
+  - `=>`
+    - ハッシュでマッチしたものを変数に入れられる
+    - `case { name: 'Alice', age: 20, gender: :female }; in name: String => name, age: 18.. => age`
+    - 外に出せば全体にマッチ
+    - `case { name: 'Alice', age: 20, gender: :female }; in { name: String, age: 18.. } => person`
+  - `|`
+    - どれかにマッチ
+    - `case 2; in 0 | 1 | 2`
+  - `in` の後に `if` を繋げられる
+  - 1行パターンマッチ
+    - `[1, 2, 3] in [Integer, Integer, Integer]` みたいな感じ
+      - `true` または `false` を返す
+    - `=>` でもパターンマッチ可能
+      - `123 => n`
+  - パターンマッチはスコープを作らない
+  - 自作クラスをパターンマッチに対応させる
+    - `deconstruct` メソッドや `deconstruct_keys` メソッドを実装する
