@@ -8,10 +8,15 @@
       "name": "Introduction_to_Ruby_programming_for_future_professionals_2nd_edition",
       "path": "./Introduction_to_Ruby_programming_for_future_professionals_2nd_edition",
     },
+    {
+      "name": "The_Science_of_Lean_Software_and_DevOps",
+      "path": "./The_Science_of_Lean_Software_and_DevOps",
+    },
   ],
   "settings": {
     "files.exclude": {
-      "Introduction_to_Ruby_programming_for_future_professionals_2nd_edition": true
+      "Introduction_to_Ruby_programming_for_future_professionals_2nd_edition": true,
+      "The_Science_of_Lean_Software_and_DevOps": true,
     },
     "rubyLsp.formatter": "rubocop",
     "rubyLsp.rubyVersionManager": {
