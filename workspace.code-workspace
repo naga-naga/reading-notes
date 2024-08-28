@@ -12,11 +12,16 @@
       "name": "The_Science_of_Lean_Software_and_DevOps",
       "path": "./The_Science_of_Lean_Software_and_DevOps",
     },
+    {
+      "name": "Test_Driven_Development",
+      "path": "./Test_Driven_Development",
+    },
   ],
   "settings": {
     "files.exclude": {
       "Introduction_to_Ruby_programming_for_future_professionals_2nd_edition": true,
       "The_Science_of_Lean_Software_and_DevOps": true,
+      "Test_Driven_Development": true,
     },
     "rubyLsp.formatter": "rubocop",
     "rubyLsp.rubyVersionManager": {
