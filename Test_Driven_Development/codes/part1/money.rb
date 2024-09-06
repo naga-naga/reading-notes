@@ -8,6 +8,6 @@ class Dollar # rubocop:disable Style/Documentation
   end
 
   def times(multiplier)
-    @amount *= multiplier
+    Dollar.new(@amount * multiplier)
   end
 end
