@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Dollar # rubocop:disable Style/Documentation
-  attr_accessor :amount
+  attr_reader :amount
 
   def initialize(amount)
     @amount = amount
