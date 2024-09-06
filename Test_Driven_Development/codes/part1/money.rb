@@ -10,4 +10,8 @@ class Dollar # rubocop:disable Style/Documentation
   def times(multiplier)
     Dollar.new(@amount * multiplier)
   end
+
+  def ==(other)
+    @amount == Dollar.new(other).amount
+  end
 end
