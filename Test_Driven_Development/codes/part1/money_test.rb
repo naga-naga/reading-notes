@@ -23,5 +23,10 @@ RSpec.describe 'Money' do
       expect(five.times(2)).to eq(Franc.new(10))
       expect(five.times(3)).to eq(Franc.new(15))
     end
+
+    it '同じ金額の Franc オブジェクトが等しいが、異なる金額の Franc オブジェクトは等しくないこと' do
+      expect(Franc.new(5)).to eq(Franc.new(5))
+      expect(Franc.new(5)).not_to eq(Franc.new(6))
+    end
   end
 end
