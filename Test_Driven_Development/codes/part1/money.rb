@@ -8,6 +8,8 @@ class Money # rubocop:disable Style/Documentation
   end
 
   def ==(other)
-    @amount == Money.new(other).amount
+    return false unless other.is_a?(Money)
+
+    @amount == other.amount && self.class == other.class
   end
 end

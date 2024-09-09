@@ -34,3 +34,16 @@
 ## 第6章
 - 歯の健康のためにリファクタリングは大事
 > リファクタリングが無ければ設計は次第に腐り、あなたは職や家族を失い、健康に気をつかわなくなり、虫歯になる。つまり、歯の健康のためには、遡ってテストをリファクタリングの前に書かなければならないわけだ。(p.38)
+
+## 第7章
+- `expect(five.times(2)).to eq(Dollar.new(10))` のようなテストが落ちる
+  - `Dollar` と `Integer` の比較が途中で走り、下の実装の `&&` の後の条件を満たせないため死ぬ
+  - `self` が `Dollar` になり、 `other` が `Integer` になる
+
+```ruby
+  def ==(other)
+    return false unless other.is_a?(Money)
+
+    @amount == Money.new(other).amount && self.class == other.class
+  end
+```

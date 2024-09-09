@@ -15,6 +15,10 @@ RSpec.describe 'Money' do
       expect(Dollar.new(5)).to eq(Dollar.new(5))
       expect(Dollar.new(5)).not_to eq(Dollar.new(6))
     end
+
+    it '同じ額面の Dollar と Franc が等しくないこと' do
+      expect(Dollar.new(5)).not_to eq(Franc.new(5))
+    end
   end
 
   context 'Franc について' do
