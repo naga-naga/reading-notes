@@ -3,6 +3,14 @@
 class Money # rubocop:disable Style/Documentation
   attr_reader :amount
 
+  def self.dollar(amount)
+    Dollar.new(amount)
+  end
+
+  def self.franc(amount)
+    Franc.new(amount)
+  end
+
   def initialize(amount)
     @amount = amount
   end

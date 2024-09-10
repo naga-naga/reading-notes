@@ -47,3 +47,11 @@
     @amount == Money.new(other).amount && self.class == other.class
   end
 ```
+
+↑ `Money.new(other)` が間違い。 `other.amount` で良かった
+
+## 第8章
+- Factory Method パターン
+  - オブジェクトの作成に柔軟性を持たせたいときに使うとよい？
+    - 異なるクラスのオブジェクトを返したいときなど
+  - 柔軟性が不要ならコンストラクタで十分
