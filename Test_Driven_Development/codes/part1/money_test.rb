@@ -1,9 +1,18 @@
 # frozen_string_literal: true
 
 require_relative './money'
+require_relative './bank'
 
 RSpec.describe 'Money' do
-  it '金額に数値をかけると金額を得られること' do
+  it '同じ通貨の足し算ができること' do
+    five = Money.dollar(5)
+    sum = five.plus(five)
+    bank = Bank.new
+    reduced = bank.reduce(sum, 'USD')
+    expect(reduced).to eq(Money.dollar(10))
+  end
+
+  it '通貨の掛け算ができること' do
     five = Money.dollar(5)
     expect(five.times(2)).to eq(Money.dollar(10))
     expect(five.times(3)).to eq(Money.dollar(15))
