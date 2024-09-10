@@ -33,4 +33,11 @@ RSpec.describe 'Money' do
       expect(Money.franc(5)).not_to eq(Money.franc(6))
     end
   end
+
+  context '通貨について' do
+    it 'オブジェクトから通貨が得られること' do
+      expect(Money.dollar(1).currency).to eq('USD')
+      expect(Money.franc(1).currency).to eq('CHF')
+    end
+  end
 end

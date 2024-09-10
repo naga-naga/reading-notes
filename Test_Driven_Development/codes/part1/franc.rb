@@ -4,6 +4,6 @@ require_relative './money'
 
 class Franc < Money # rubocop:disable Style/Documentation
   def times(multiplier)
-    Franc.new(@amount * multiplier)
+    Money.franc(@amount * multiplier)
   end
 end
