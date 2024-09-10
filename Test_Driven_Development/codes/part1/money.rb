@@ -16,9 +16,17 @@ class Money # rubocop:disable Style/Documentation
     @currency = currency
   end
 
+  def times(multiplier)
+    Money.new(@amount * multiplier, currency)
+  end
+
   def ==(other)
     return false unless other.is_a?(Money)
 
-    @amount == other.amount && self.class == other.class
+    amount == other.amount && currency == other.currency
+  end
+
+  def to_s
+    "#{@amount} #{@currency}"
   end
 end

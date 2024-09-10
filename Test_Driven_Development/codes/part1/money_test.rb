@@ -32,6 +32,10 @@ RSpec.describe 'Money' do
       expect(Money.franc(5)).to eq(Money.franc(5))
       expect(Money.franc(5)).not_to eq(Money.franc(6))
     end
+
+    it '同じ金額の Money(CHF) と Franc は等しいこと' do
+      expect(Money.new(10, 'CHF')).to eq(Franc.new(10, 'CHF'))
+    end
   end
 
   context '通貨について' do
