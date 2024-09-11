@@ -29,8 +29,9 @@ class Money
     Money.new(amount * multiplier, currency)
   end
 
-  def reduce(_to)
-    self
+  def reduce(bank, to)
+    rate = bank.rate(currency, to)
+    Money.new(amount / rate, to)
   end
 
   def ==(other)

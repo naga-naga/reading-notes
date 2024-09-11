@@ -12,7 +12,7 @@ class Sum
     @addend = addend
   end
 
-  def reduce(to)
+  def reduce(_bank, to)
     amount = augend.amount + addend.amount
     Money.new(amount, to)
   end

@@ -51,4 +51,15 @@ RSpec.describe 'Money' do
     expect(Money.dollar(1).currency).to eq('USD')
     expect(Money.franc(1).currency).to eq('CHF')
   end
+
+  it 'フランをドルに換算できること' do
+    bank = Bank.new
+    bank.add_rate('CHF', 'USD', 2)
+    result = bank.reduce(Money.franc(2), 'USD')
+    expect(result).to eq(Money.dollar(1))
+  end
+
+  it '同じ通貨に換算する際のレートは 1 であること' do
+    expect(Bank.new.rate('USD', 'USD')).to eq(1)
+  end
 end
