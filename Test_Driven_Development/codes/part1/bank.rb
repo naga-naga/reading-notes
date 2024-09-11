@@ -2,7 +2,7 @@
 
 require_relative './money'
 
-class Bank # rubocop:disable Style/Documentation
+class Bank
   def reduce(source, to)
     source.reduce(to)
   end

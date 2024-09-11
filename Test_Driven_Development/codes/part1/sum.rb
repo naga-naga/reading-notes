@@ -2,7 +2,7 @@
 
 require_relative './expression'
 
-class Sum # rubocop:disable Style/Documentation
+class Sum
   include Expression
 
   attr_reader :augend, :addend

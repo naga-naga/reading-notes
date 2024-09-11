@@ -3,7 +3,7 @@
 require_relative './expression'
 require_relative './sum'
 
-class Money # rubocop:disable Style/Documentation
+class Money
   include Expression
 
   attr_reader :amount, :currency
