@@ -4,6 +4,6 @@ require_relative './money'
 
 class Bank # rubocop:disable Style/Documentation
   def reduce(source, to)
-    Money.dollar(10)
+    source.reduce(to)
   end
 end

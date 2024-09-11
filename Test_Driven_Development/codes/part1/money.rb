@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
+require_relative './expression'
+require_relative './sum'
+
 class Money # rubocop:disable Style/Documentation
+  include Expression
+
   attr_reader :amount, :currency
 
   def self.dollar(amount)
@@ -17,11 +22,15 @@ class Money # rubocop:disable Style/Documentation
   end
 
   def plus(addend)
-    Money.new(amount + addend.amount, currency)
+    Sum.new(self, addend)
   end
 
   def times(multiplier)
     Money.new(amount * multiplier, currency)
+  end
+
+  def reduce(_to)
+    self
   end
 
   def ==(other)
