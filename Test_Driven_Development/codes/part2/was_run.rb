@@ -3,11 +3,11 @@
 require_relative 'test_case'
 
 class WasRun < TestCase
-  attr_reader :was_run
+  attr_reader :was_setup, :was_run
 
-  def initialize(name)
-    super(name)
+  def setup
     @was_run = nil
+    @was_setup = 1
   end
 
   def test_method

@@ -4,15 +4,24 @@ require_relative 'test_case'
 require_relative 'was_run'
 
 class TestCaseTest < TestCase
-  def test_running
-    test = WasRun.new(:test_method)
-    raise if test.was_run
+  def setup
+    @test = WasRun.new(:test_method)
+  end
 
-    test.run
-    raise unless test.was_run
+  def test_running
+    @test.run
+    raise unless @test.was_run
+
+    puts 'success'
+  end
+
+  def test_setup
+    @test.run
+    raise unless @test.was_setup
 
     puts 'success'
   end
 end
 
 TestCaseTest.new(:test_running).run
+TestCaseTest.new(:test_setup).run
