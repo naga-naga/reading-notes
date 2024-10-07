@@ -7,8 +7,11 @@ class TestCase
 
   def setup; end
 
+  def tear_down; end
+
   def run
     setup
     send(@name)
+    tear_down
   end
 end

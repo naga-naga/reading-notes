@@ -3,14 +3,17 @@
 require_relative 'test_case'
 
 class WasRun < TestCase
-  attr_reader :was_setup, :was_run
+  attr_reader :log
 
   def setup
-    @was_run = nil
-    @was_setup = 1
+    @log = 'setup '
   end
 
   def test_method
-    @was_run = 1
+    @log += 'test_method '
+  end
+
+  def tear_down
+    @log += 'tear_down '
   end
 end
