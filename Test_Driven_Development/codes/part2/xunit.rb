@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative 'was_run'
+require_relative 'test_case_test'
 
-test = WasRun.new(:test_method)
-p test.was_run
-test.run
-p test.was_run
+puts TestCaseTest.new(:test_template_method).run.summary
+puts TestCaseTest.new(:test_result).run.summary
+puts TestCaseTest.new(:test_failed_result).run.summary
+puts TestCaseTest.new(:test_failed_result_formatting).run.summary

@@ -15,7 +15,13 @@ class TestCase
     result = TestResult.new
     result.test_started
     setup
-    send(@name)
+
+    begin
+      send(@name)
+    rescue StandardError
+      result.test_failed
+    end
+
     tear_down
     result
   end
