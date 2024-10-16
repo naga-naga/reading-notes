@@ -11,8 +11,7 @@ class TestCase
 
   def tear_down; end
 
-  def run
-    result = TestResult.new
+  def run(result)
     result.test_started
     setup
 
@@ -23,6 +22,5 @@ class TestCase
     end
 
     tear_down
-    result
   end
 end
