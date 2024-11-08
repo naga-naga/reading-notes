@@ -16,6 +16,10 @@
       "name": "Test_Driven_Development",
       "path": "./Test_Driven_Development",
     },
+    {
+      "name": "SQL_Performance_Explained",
+      "path": "./SQL_Performance_Explained",
+    },
   ],
   "settings": {
     "files.exclude": {
