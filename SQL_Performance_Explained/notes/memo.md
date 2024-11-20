@@ -88,3 +88,45 @@
 - Oracle では空文字列を NULL として扱う
 - 文字列と NULL を連結する際は NULL が空文字列として扱われる
 - 列のすべてが NULL である場合、その行はインデックスに含まれない
+
+## 処理しにくい条件
+### 日付型
+- 以下のような書き方はよくない
+- 関数を使うとインデックスが効かない
+  - MySQL には関数インデックスがない
+
+```SQL
+SELECT ...
+FROM sales
+WHERE DATE_FORMAT(sale_date, "%Y-%M") = DATE_FORMAT(now(), "%Y-%M")
+```
+
+- 代替案として、範囲条件を明確にするとよい
+  - インデックスが効くようになる
+- 検索するのが1日だけであったとしても、範囲条件にするのが良い
+
+```SQL
+SELECT ...
+FROM sales
+WHERE sale_date BETWEEN quarter_begin(?) AND quarter_end(?)
+```
+
+- `quarter_begin` と `quarter_end` は自分で定義する
+- テーブル列を変換するのではなく、検索語の方を変換するのが良い
+
+```SQL
+-- BAD
+SELECT ...
+FROM sales
+WHERE TO_CHAR(sale_date, 'YYYY-MM-DD') = '1970-01-01'
+
+-- GOOD
+SELECT ...
+FROM sales
+WHERE sale_date = TO_DATE('1970-01-01', 'YYYY-MM-DD')
+```
+
+### 数値文字列
+- テキストの列に保存されている数値
+- そもそも数値は数値型で保存しよう
+- 日付型の例と同じく、テーブルの列はそのままで、右辺を関数に通すのがよい？
