@@ -142,3 +142,22 @@ WHERE sale_date = TO_DATE('1970-01-01', 'YYYY-MM-DD')
   - 「動的 SQL は遅い」という都市伝説があるらしい？
   - 無理に静的なクエリを作ろうとしても遅い
 - KISS 原則、大事
+
+### 数式
+- 列に対して計算をするようなクエリに対してはインデックスが効かない
+
+```SQL
+-- インデックスが効かない例
+SELECT numeric_number
+FROM table_name
+WHERE numeric_number - 1000 > ?
+
+SELECT numeric_number
+FROM table_name
+WHERE 3*a + 5 = b
+```
+
+- これを逆手に取って、0を足すことでインデックスを効かなくすることもできる
+- 上手く計算式を作れば、関数インデックスを使うこともできる
+  - テーブルへの参照を左辺に寄せる
+  - 左辺の式に対するインデックスを作る
