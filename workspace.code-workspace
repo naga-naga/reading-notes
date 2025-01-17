@@ -17,6 +17,10 @@
       "path": "./Test_Driven_Development",
     },
     {
+      "name": "SQL_Antipatterns",
+      "path": "./SQL_Antipatterns",
+    },
+    {
       "name": "SQL_Performance_Explained",
       "path": "./SQL_Performance_Explained",
     },
@@ -30,6 +34,7 @@
       "Introduction_to_Ruby_programming_for_future_professionals_2nd_edition": true,
       "The_Science_of_Lean_Software_and_DevOps": true,
       "Test_Driven_Development": true,
+      "SQL_Antipatterns": true,
       "SQL_Performance_Explained": true,
       "The_Way_of_the_Web_Tester": true,
     },
