@@ -27,7 +27,11 @@
     {
       "name": "The_Way_of_the_Web_Tester",
       "path": "./The_Way_of_the_Web_Tester",
-    }
+    },
+    {
+      "name": "Web_API_The_Good_Parts",
+      "path": "./Web_API_The_Good_Parts",
+    },
   ],
   "settings": {
     "files.exclude": {
@@ -37,6 +41,7 @@
       "SQL_Antipatterns": true,
       "SQL_Performance_Explained": true,
       "The_Way_of_the_Web_Tester": true,
+      "Web_API_The_Good_Parts": true,
     },
     "rubyLsp.formatter": "rubocop",
     "rubyLsp.rubyVersionManager": {
