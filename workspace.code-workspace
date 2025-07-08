@@ -32,6 +32,10 @@
       "name": "Web_API_The_Good_Parts",
       "path": "./Web_API_The_Good_Parts",
     },
+    {
+      "name": "Introduction_to_TypeScript_for_future_professionals",
+      "path": "./Introduction_to_TypeScript_for_future_professionals",
+    },
   ],
   "settings": {
     "files.exclude": {
@@ -42,6 +46,7 @@
       "SQL_Performance_Explained": true,
       "The_Way_of_the_Web_Tester": true,
       "Web_API_The_Good_Parts": true,
+      "Introduction_to_TypeScript_for_future_professionals": true,
     },
     "rubyLsp.formatter": "rubocop",
     "rubyLsp.rubyVersionManager": {
