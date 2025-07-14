@@ -139,3 +139,44 @@ type List2<T, U = string> = {
   description: U; // オプショナルな型引数
 };
 // type T = List2<number>; // U は string になる
+
+// 配列
+const arr1 = [1, 'foo', true];
+console.log(arr1['1']); // コンパイルエラーになると本には書いてあるが、出力される🤔？
+const arr2: string[] = ['a', 'b', 'c'];
+const arr3: (number | { name: string })[] = [{ name: 'Alice' }, { name: 'Bob' }, 1]; // こんな書き方もできる
+const readonlyArray: readonly string[] = ['x', 'y', 'z']; // readonly
+console.log(readonlyArray.includes('x'));
+
+for (const item of arr1) {
+  console.log(item);
+}
+
+// タプル
+const tuple: [number, string, boolean] = [1, 'foo', true]; // タプル型
+
+// 分割代入
+const { foo, bar: barVar, baz } = { foo: 'hello', bar: 42, baz: true }; // 別名を付けられる
+console.log(foo, barVar, baz);
+
+const { foo2, bar2: { baz2 } } = { foo2: 'world', bar2: { baz2: 100 } }; // ネストしたオブジェクトも分割代入できる
+const [foo3, , bar3, , , baz3] = ['a', 'b', 'c', 'd', 'e', 'f']; // 配列の分割代入も可能。変数を書かないと飛ばせる。
+const { foo4 = 'default', bar4 = 42 } = { foo4: 'custom', bar4: null }; // null の時はデフォルト値は使われない
+console.log(foo4, bar4);
+
+// 分割代入の複雑な例
+type NestedObj = {
+  obj?: {
+    foo: number;
+  }
+};
+const nested1: NestedObj = { obj: { foo: 42 } };
+const nested2: NestedObj = {};
+const { obj: { foo: fooFromNested1 } = { foo: 500 } } = nested1;
+const { obj: { foo: fooFromNested2 } = { foo: 500 } } = nested2;
+console.log(fooFromNested1, fooFromNested2);
+
+// rest
+const [first, second, ...rest] = ['a', 'b', 'c', 'd', 'e'];
+console.log(first, second, rest);
+
