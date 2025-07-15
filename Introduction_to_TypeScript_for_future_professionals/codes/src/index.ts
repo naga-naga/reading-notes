@@ -41,7 +41,7 @@ const obj: {
 };
 
 // 型に名前を付ける
-type User = {
+export type User = {
   readonly id: number;
   username: string;
   age: number;
@@ -56,7 +56,7 @@ console.log(user3.email?.toUpperCase()); // undefined の場合があるので ?
 // user3.id = 2; // readonly なのでエラー
 
 // インデックスシグネチャ
-type PriceData = {
+export type PriceData = {
   [key: string]: number; // 任意の文字列キーの型が number
 };
 const data: PriceData = {
@@ -67,14 +67,14 @@ const data: PriceData = {
 
 // typeof
 const commands = ['start', 'stop', 'pause'] as const;
-type Command = typeof commands[number];
+export type Command = typeof commands[number];
 
 // subtype
-type FooBar = {
+export type FooBar = {
   foo: string;
   bar: number;
 };
-type FooBarBaz = {
+export type FooBarBaz = {
   foo: string;
   bar: number;
   baz: boolean;
@@ -87,7 +87,7 @@ const fooBarBazObj: FooBarBaz = {
 const fooBarObj: FooBar = fooBarBazObj; // コンパイルエラーは出ない
 
 // 余剰プロパティ
-type User2 = {
+export type User2 = {
   name: string;
   age: number;
 };
@@ -104,41 +104,41 @@ const user2_obj = {
 const user2_2: User2 = user2_obj; // 変数に入れて渡すと余剰プロパティチェックはされない
 
 // 型引数
-type List<T> = {
+export type List<T> = {
   items: T[];
 };
-type Family<Parent, Child> = { // 2文字以上も可
+export type Family<Parent, Child> = { // 2文字以上も可
   mother: Parent;
   father: Parent;
   children: Child[];
 };
 
 // extends
-type HasName = {
+export type HasName = {
   name: string;
 };
-type Family2<Parent extends HasName, Child extends HasName> = {
+export type Family2<Parent extends HasName, Child extends HasName> = {
   mother: Parent;
   father: Parent;
   children: Child[];
 };
 // type T = Family2<number, string>; // number は HasName を満たさないのでエラー
 // type T = Family2<User2, User2>; // User2 は HasName を満たすのでOK
-type Animal2 = {
+export type Animal2 = {
   name: string;
 };
-type Human2 = {
+export type Human2 = {
   name: string;
   age: number;
 };
-// type T = Family2<Animal2, Human2>; // Animal2 は HasName を満たすのでOK
+// export type T = Family2<Animal2, Human2>; // Animal2 は HasName を満たすのでOK
 
 // オプショナルな型引数
-type List2<T, U = string> = {
+export type List2<T, U = string> = {
   items: T[];
   description: U; // オプショナルな型引数
 };
-// type T = List2<number>; // U は string になる
+// export type T = List2<number>; // U は string になる
 
 // 配列
 const arr1 = [1, 'foo', true];
@@ -165,7 +165,7 @@ const { foo4 = 'default', bar4 = 42 } = { foo4: 'custom', bar4: null }; // null 
 console.log(foo4, bar4);
 
 // 分割代入の複雑な例
-type NestedObj = {
+export type NestedObj = {
   obj?: {
     foo: number;
   }
