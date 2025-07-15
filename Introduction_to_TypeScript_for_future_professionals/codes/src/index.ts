@@ -180,3 +180,19 @@ console.log(fooFromNested1, fooFromNested2);
 const [first, second, ...rest] = ['a', 'b', 'c', 'd', 'e'];
 console.log(first, second, rest);
 
+// Map
+const map1: Map<string, number> = new Map();
+map1.set('apple', 100);
+
+// WeakMap
+const weakMap1: WeakMap<object, number> = new WeakMap();
+weakMap1.set({ name: 'Alice' }, 100);
+console.log(weakMap1.get({ name: 'Alice' })); // キーの参照が他にないのでガベージコレクトされて undefined
+
+const objForWeakMap = { name: 'Alice' };
+weakMap1.set(objForWeakMap, 100);
+console.log(weakMap1.get(objForWeakMap));
+
+// 部分型の仕組みにより、これらはコンパイルエラーにならない
+const val1: {} = 1;
+const val2: {} = 'foo';
