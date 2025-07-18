@@ -196,3 +196,51 @@ console.log(weakMap1.get(objForWeakMap));
 // 部分型の仕組みにより、これらはコンパイルエラーにならない
 const val1: {} = 1;
 const val2: {} = 'foo';
+
+// 関数
+console.log(range(1, 5)); // 巻き上げられるので、ここより後に定義された関数も呼び出せる
+
+function range(start: number, end: number): number[] {
+  const result: number[] = [];
+  for (let i = start; i <= end; i++) {
+    result.push(i);
+  }
+  return result;
+}
+
+// 関数式
+export type Human = {
+  height: number;
+  weight: number;
+};
+const calculateBMI = function ({ height, weight }: Human): number {
+  return weight / height ** 2;
+};
+console.log(calculateBMI({ height: 1.66, weight: 60 }));
+
+// アロー関数
+const calculateBMI2 = ({ height, weight }: Human): number => weight / height ** 2;
+const calculateBMI3 = ({ height, weight }: Human): number => { return weight / height ** 2; }; // 中括弧を使うと return が必要
+const calculateBMI4 = ({ height, weight }: Human) => ({bmi: weight / height ** 2}); // オブジェクトを返す場合は () で囲む
+
+// オブジェクト内の関数
+const objWithMethod = {
+  double1(num: number): number {
+    return num * 2;
+  },
+  double2: (num: number): number => num * 2,
+};
+
+// 可変長引数
+const sumArray = (...args: number[]): number => {
+  return args.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+};
+console.log(sumArray(...[123, 456, 789, 1000])); // スプレッド構文
+
+// オプショナル引数
+const optionalArgs = (a: number, b?: number, c: number = 10): number => {
+  return a + (b ?? 0) + c;
+};
+console.log(optionalArgs(1));
+
+
