@@ -243,4 +243,62 @@ const optionalArgs = (a: number, b?: number, c: number = 10): number => {
 };
 console.log(optionalArgs(1));
 
+// 関数型
+export type F1 = (repeatNum: number) => string;
+const xRepeat: F1 = (num: number): string => 'x'.repeat(num);
+console.log(xRepeat(5));
 
+// コールシグネチャ
+// 関数にプロパティを持たせることができる
+export type MyFunc = {
+  isUsed?: boolean;
+  (arg: number): void;
+};
+const double1: MyFunc = (arg: number) => {
+  console.log(arg * 2);
+}
+double1.isUsed = true;
+console.log(double1.isUsed);
+double1(100);
+
+// 部分型
+{
+  type HasName = {
+    name: string;
+  };
+  type HasNameAndAge = {
+    name: string;
+    age: number;
+  };
+
+  // 返り値の型による部分型
+  const fromAge = (age: number): HasNameAndAge => ({
+    name: 'John Smith',
+    age,
+  });
+
+  const f: (age: number) => HasName = fromAge;
+  const obj: HasName = f(100);
+
+  // 引数の型による部分型
+  const showName = (obj: HasName) => {
+    console.log(obj.name);
+  };
+  const g: (obj: HasNameAndAge) => void = showName;
+
+  g({ name: 'Alice', age: 30 });
+}
+
+// readonly の部分型
+{
+  const sum: (numbers: readonly number[]) => number = (numbers) => {
+    return numbers.reduce((acc, num) => acc + num, 0);
+  };
+
+  const numbers1: readonly number[] = [1, 10, 100];
+  const numbers2: number[] = [2, 20, 200];
+
+  // numbers[] は readonly number[] の部分型
+  console.log(sum(numbers1));
+  console.log(sum(numbers2));
+}
