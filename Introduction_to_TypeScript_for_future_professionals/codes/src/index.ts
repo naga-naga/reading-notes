@@ -304,3 +304,20 @@
   console.log(sum(numbers1));
   console.log(sum(numbers2));
 }
+
+// ジェネリクス
+{
+  const repeat = <T>(value: T, times: number): T[] => {
+    const result: T[] = [];
+    for (let i = 0; i < times; i++) {
+      result.push(value);
+    }
+    return result;
+  }
+  console.log(repeat<string>('Hello', 3));
+  console.log(repeat<number>(42, 5));
+  console.log(repeat(null, 2));
+
+  const pair = <Left, Right>(left: Left, right: Right): [Left, Right] => [left, right];
+  console.log(pair<string, number>('Alice', 30));
+}
