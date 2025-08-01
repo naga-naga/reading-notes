@@ -321,3 +321,90 @@
   const pair = <Left, Right>(left: Left, right: Right): [Left, Right] => [left, right];
   console.log(pair<string, number>('Alice', 30));
 }
+
+// クラス
+{
+  class User {
+    static adminName: string = 'admin';
+    static getAdminUser(): User {
+      return new User(User.adminName, 0);
+    }
+
+    name: string;
+    age: number;
+    nickname?: string; // オプショナルなプロパティも宣言可能
+
+    constructor(name: string = '', age: number = 0, nickname?: string) {
+      this.name = name;
+      this.age = age;
+      if (nickname) {
+        this.nickname = nickname;
+      }
+    }
+
+    isAdult(): boolean {
+      return this.age >= 18;
+    }
+  }
+
+  const user1 = new User();
+  console.log('user1 :>> ', user1);
+
+  const object1 = {
+    cl: User,
+  };
+  const user2 = new object1.cl();
+  console.log('user2 :>> ', user2);
+
+  const user3 = new User('Alice', 20, 'Ally');
+  console.log('user3 :>> ', user3);
+
+  console.log('User.getAdminUser() :>> ', User.getAdminUser());
+
+  class User2 {
+    // フィールド宣言とコンストラクタをまとめられる
+    constructor(public name: string, public age: number) { }
+  }
+
+  console.log("new User2('Bob', 30) :>> ", new User2('Bob', 30));
+
+  // クラス式
+  const User3 = class {
+    constructor(public name: string, private age: number) { }
+
+    isAdult(): boolean {
+      return this.age >= 18;
+    }
+  };
+
+  console.log('new User3("Charlie", 25) :>> ', new User3("Charlie", 25));
+
+  class User4 {
+    static {
+      console.log('User4 static block executed'); // クラスの静的ブロック
+    }
+
+    private _name: string;
+    #age: number; // ECMAScript 由来の private フィールド
+
+    constructor(name: string, age: number) {
+      this._name = name;
+      this.#age = age;
+    }
+
+    introduce(): string {
+      return `My name is ${this._name} and I am ${this.#age} years old.`;
+    }
+  }
+
+  const user4 = new User4("Dave", 40);
+  console.log('user4 :>> ', user4);
+  console.log('user4.introduce() :>> ', user4.introduce());
+
+  class User5<T> {
+    constructor(public name: string, public age: number, public data: T) { }
+  }
+
+  console.log('new User5("Eve", 35, { hobbies: ["reading", "gaming"] }) :>> ', new User5("Eve", 35, { hobbies: ["reading", "gaming"] }));
+}
+
