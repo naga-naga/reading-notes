@@ -406,5 +406,98 @@
   }
 
   console.log('new User5("Eve", 35, { hobbies: ["reading", "gaming"] }) :>> ', new User5("Eve", 35, { hobbies: ["reading", "gaming"] }));
+
+  // 型的には OK
+  const user2_2: User2 = {
+    name: 'Alice',
+    age: 20,
+  };
+
+  // instanceof
+  const user2_3 = new User2('Bob', 25);
+
+  console.log(user2_2 instanceof User2); // new していないので false
+  console.log(user2_3 instanceof User2);
 }
 
+// 継承
+{
+  class User {
+    name: string;
+    #age: number;
+
+    constructor(name: string, age: number) {
+      this.name = name;
+      this.#age = age;
+    }
+
+    public isAdult(): boolean {
+      return this.#age >= 18;
+    }
+  }
+
+  class PremiumUser extends User {
+    rank: number;
+
+    constructor(name: string, age: number, rank: number) {
+      super(name, age);
+      this.rank = rank;
+    }
+
+    public override isAdult(): boolean {
+      return true;
+    }
+  }
+}
+
+// implements
+{
+  type HasName = {
+    name: string;
+  }
+
+  class User implements HasName {
+    constructor(public name: string, public age: number) { }
+  }
+}
+
+// this について
+{
+  class User {
+    name: string;
+    age: number;
+
+    constructor(name: string, age: number) {
+      this.name = name;
+      this.age = age;
+    }
+
+    public isAdult(): boolean {
+      return this.age >= 18;
+    }
+
+    public filterOlder(users: readonly User[]): User[] {
+      return users.filter(user => user.age > this.age); // アロー関数の this は外側の this を参照する
+    }
+
+    public filterOlderBadly(users: readonly User[]): User[] {
+      return users.filter(function (this: User, user) {
+        return user.age > this.age; // ここでの this は undefined になる
+      }); // アロー関数ではないので、this はこのメソッドを呼び出したオブジェクトを参照しない
+    }
+  }
+
+  const user1 = new User('Alice', 20);
+  const user2 = new User('Bob', 30);
+  const user3 = new User('Charlie', 15);
+  // const isAdult1 = user1.isAdult;
+  // console.log(isAdult1()); // this が undefined になってしまう（メソッド呼び出し時の . の左側が this になる）
+
+  console.log(user1.filterOlder([user2, user3]));
+  // console.log(user1.filterOlderBadly([user2, user3]));
+
+  console.log(user3.isAdult());
+  console.log(user3.isAdult.call(user1)); // this を user1 にして呼び出す
+  const isAdult = user3.isAdult.bind(user1); // this を user1 にする
+  console.log(isAdult());
+}
