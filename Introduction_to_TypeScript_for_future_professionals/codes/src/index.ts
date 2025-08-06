@@ -549,3 +549,61 @@
     console.log(`Error caught: ${error}`);
   }
 }
+
+// ユニオン型
+{
+  type Animal = {
+    species: string;
+    age: string;
+  };
+  type Human = {
+    name: string;
+    age: number;
+  };
+
+  // 最初の型の前にも | を書ける
+  type User =
+    | Animal
+    | Human;
+
+  const tama: User = { species: 'cat', age: '2 years' };
+  const alice: User = { name: 'Alice', age: 20 };
+
+  const showAge = (user: User) => {
+    return user.age; // string | number
+  }
+}
+
+// インターセクション型
+{
+  type Animal = {
+    species: string;
+    age: number;
+  };
+  type Human = Animal & {
+    name: string;
+  };
+
+  const tama: Animal = { species: 'cat', age: 2 };
+  const alice: Human = { species: 'human', age: 20, name: 'Alice' };
+
+  type NumberAndString = number & string;
+  // const foo: Animal & string = 'cat';
+}
+
+// オプショナルチェイニング
+{
+  type User = {
+    name: string;
+    age?: number; // オプショナルなプロパティ
+  };
+
+  const user: User = { name: 'Alice' };
+  console.log(user.age?.toString()); // undefined の場合はエラーにならない
+
+  type GetTimeFunc = () => Date;
+
+  const useTime = (getTimeFunc: GetTimeFunc | undefined) => {
+    const timeOrUndefined = getTimeFunc?.(); // ?.() で呼び出す
+  };
+}
