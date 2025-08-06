@@ -501,3 +501,51 @@
   const isAdult = user3.isAdult.bind(user1); // this を user1 にする
   console.log(isAdult());
 }
+
+// 例外
+{
+  try {
+    throw new Error('これはエラーです');
+  } catch (error) {
+    console.log('エラーが発生しました:', error);
+  }
+
+  try {
+    console.log(BigInt('foo'));
+  } catch (error) {
+    console.log(error);
+  }
+
+  try {
+    console.log(1 / 0); // Infinity になり、エラーにはならない
+  } catch (error) {
+    console.log(error);
+  }
+
+  try {
+    throw new Error();
+  } catch (error) {
+    console.log(error);
+  } finally {
+    console.log('finally');
+  }
+
+  const sum = (a: number, b: number): number => {
+    try {
+      return a + b;
+    } finally {
+      console.log('finally block in sum'); // return より前に実行される
+    }
+  };
+  console.log(sum(1, 2));
+
+  try {
+    // エラーオブジェクト以外も投げられる
+    // throw null;
+    // throw () => 'This is not an error';
+    // throw function () { return 'This is not an error'; };
+    throw 128;
+  } catch (error) {
+    console.log(`Error caught: ${error}`);
+  }
+}
