@@ -607,3 +607,115 @@
     const timeOrUndefined = getTimeFunc?.(); // ?.() で呼び出す
   };
 }
+
+// リテラル型
+{
+  const hello: `Hello, ${string}` = 'Hello, World';
+
+  function makeKey<T extends string>(userName: T) {
+    return `user:${userName}` as const;
+  }
+
+  const aliceKey = makeKey('Alice');
+
+  function fromKey<T extends string>(key: `user:${T}`): T {
+    return key.slice(5) as T;
+  }
+
+  const user = fromKey(aliceKey);
+
+  // widening
+  const foo_const = 'foo'; // 'foo' 型
+  let foo_let = 'foo'; // string 型
+
+  const bar = {
+    foo: 'foo',
+    bar: 'foo' as const,
+  }
+}
+
+// 型の絞り込み
+{
+  console.log(typeof 123); // 'number'
+  console.log(typeof 'foo'); // 'string'
+  console.log(typeof true); // 'boolean'
+  console.log(typeof {}); // 'object'
+  console.log(typeof []); // 'object'
+  console.log(typeof null); // 'object' (JavaScript のバグ)
+  console.log(typeof undefined); // 'undefined'
+  console.log(typeof (() => { })); // 'function'
+
+  type Animal = {
+    tag: 'animal';
+    species: string;
+  };
+  type Human = {
+    tag: 'human';
+    name: string;
+  };
+  type User = Animal | Human;
+
+  function getUserName(user: User): string {
+    if (user.tag === 'human') {
+      return user.name;
+    } else {
+      return '名無し';
+    }
+  }
+}
+
+// keyof, lookup
+{
+  type Human = {
+    type: 'human';
+    name: string;
+    age: number;
+  };
+
+  // lookup 型
+  // T[K] の形で、T のキー K に対応する型を取得できる
+  function setAge(human: Human, age: Human['age']) {
+    return {
+      ...human,
+      age,
+    };
+  }
+
+  // keyof
+  type HumanKeys = keyof Human;
+  const humanKeys: HumanKeys[] = ['type', 'name', 'age'];
+
+  const mmConversionTable = {
+    mm: 1,
+    cm: 10,
+    m: 1e3,
+    km: 1e6,
+  };
+
+  function convertUnits(value: number, unit: keyof typeof mmConversionTable) {
+    const mmValue = value * mmConversionTable[unit];
+    return {
+      mm: mmValue,
+      cm: mmValue / mmConversionTable.cm,
+      m: mmValue / mmConversionTable.m,
+      km: mmValue / mmConversionTable.km,
+    };
+  }
+
+  // { mm: number; cm: number; m: number; km: number; } 型
+  const foo: typeof mmConversionTable = {
+    mm: 1,
+    cm: 10,
+    m: 1e3,
+    km: 1e6,
+  };
+  console.log(typeof mmConversionTable);
+  console.log(convertUnits(1, 'cm')); // { mm: 10, cm: 10, m: 0.01, km: 0.00001 }
+
+  function get<T, K extends keyof T>(obj: T, key: K): T[K] {
+    return obj[key];
+  }
+
+  const human: Human = { type: 'human', name: 'Alice', age: 20 };
+  console.log(`${get(human, 'name')}, ${get(human, 'age')}`);
+}
