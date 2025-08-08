@@ -719,3 +719,139 @@
   const human: Human = { type: 'human', name: 'Alice', age: 20 };
   console.log(`${get(human, 'name')}, ${get(human, 'age')}`);
 }
+
+// 型アサーション
+{
+  // as で型を指定
+  const foo: string | number = '123';
+  const foo2 = foo as string;
+  const foo3 = <string>foo; // 古い書き方
+  console.log(foo2.slice(0, 2));
+  console.log(foo3)
+
+  // ! でも同じようなことができる
+  const bar = (str: string | undefined): string => (str!.slice(0, 2));
+  try {
+    console.log(bar('hello'));
+    console.log(bar(undefined));
+  } catch (e) {
+    if (e instanceof Error) {
+      console.log(`${e.name}: ${e.message}`);
+    }
+  }
+
+  // as const
+  const names = ['Alice', 'Bob', 'Charlie'] as const; // readonly ['Alice', 'Bob', 'Charlie']
+  type Names = (typeof names)[number]; // [number] はインデックスアクセス型というらしい
+}
+
+// any, unknown, object, never
+{
+  const foo: any = 'foo';
+  try {
+    console.log(foo.bar());
+  } catch (e) {
+    if (e instanceof Error) {
+      console.log(`${e.name}: ${e.message}`);
+    }
+  }
+
+  const doNothing = (value: unknown) => {
+    console.log(`value: ${value}`);
+
+    if (typeof value === 'string') {
+      console.log(value.toUpperCase());
+    } else if (typeof value === 'number') {
+      console.log(value.toFixed(2));
+    } else if (typeof value === 'function') {
+      console.log(value());
+    }
+  }
+
+  doNothing('hello');
+  doNothing(42);
+  doNothing(() => 'This is a function');
+
+  const obj: object = { name: 'Alice' };
+
+  // never 型はすべての型の部分型
+  // never 型の値を渡せないので呼べない
+  const useNever = (value: never) => {
+    const str: string = value;
+    const num: number = value;
+    const obj: object = value;
+    console.log(`value: ${value}`);
+  };
+
+  // useNever('foo');
+
+  const throwError = (message: string): never => {
+    throw new Error(message);
+  };
+
+  try {
+    const result = throwError('This is an error');
+  } catch (e) {
+    if (e instanceof Error) {
+      console.log(`${e.name}: ${e.message}`);
+    }
+  }
+}
+
+// ユーザ定義型ガード
+{
+  const isString = (value: unknown): value is string => {
+    return typeof value === 'string';
+  };
+
+  const something: unknown = 'Hello, TypeScript!';
+  if (isString(something)) {
+    console.log(something.toUpperCase());
+  }
+
+  type Human = {
+    type: 'Human';
+    name: string;
+    age: number;
+  };
+
+  const isHuman = (value: any): value is Human => {
+    if (value === null || value === undefined) {
+      return false;
+    }
+
+    return (
+      value.type === 'Human' &&
+      typeof value.name === 'string' &&
+      typeof value.age === 'number'
+    );
+  }
+
+  const person: unknown = { type: 'Human', name: 'Alice', age: 30 };
+  if (isHuman(person)) {
+    console.log(`Name: ${person.name}, Age: ${person.age}`);
+  }
+
+  const assertHuman: (value: any) => asserts value is Human = (value) => {
+    if (value === null || value === undefined) {
+      throw new Error('Value is null or undefined');
+    }
+
+    if (value.type !== 'Human' || typeof value.name !== 'string' || typeof value.age !== 'number') {
+      throw new Error('Value is not a Human');
+    }
+  }
+
+  const validatePerson = (value: unknown): Human => {
+    assertHuman(value);
+    return value;
+  }
+  try {
+    const validPerson = validatePerson(person);
+    console.log(`Valid person: ${validPerson.name}, Age: ${validPerson.age}`);
+  } catch (e) {
+    if (e instanceof Error) {
+      console.log(`${e.name}: ${e.message}`);
+    }
+  }
+}
