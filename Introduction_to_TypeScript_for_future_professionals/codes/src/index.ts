@@ -855,3 +855,63 @@
     }
   }
 }
+
+// 可変長タプル型
+{
+  type Tuple = [number, ...string[], number];
+  const example1: Tuple = [1, 'foo', 'bar', 2];
+  const example2: Tuple = [1, 2];
+  // const bad_example1: Tuple = [1, 2, 3];
+  // const bad_example2: Tuple = [1, 'foo'];
+}
+
+// mapped types
+{
+  type Fruit = 'apple' | 'orange' | 'strawberry';
+
+  type FruitPrices = {
+    [P in Fruit]: number;
+  };
+
+  const prices: FruitPrices = {
+    'apple': 100,
+    'orange': 200,
+    'strawberry': 400,
+  };
+
+  type FruitArrays = {
+    [P in Fruit]: P[];
+  };
+
+  const fruitArrays: FruitArrays = {
+    'apple': ['apple'],
+    'orange': ['orange', 'orange'],
+    'strawberry': [],
+  };
+}
+
+// conditional types
+{
+  type IsString<T> = T extends string ? true : false;
+  const foo: IsString<'a'> = true;
+  const bar: IsString<1> = false;
+}
+
+// 組み込み型
+{
+  type User = {
+    name: string;
+    age: number;
+  };
+
+  type Union = 'foo' | 'bar' | 1 | 2 | true | null | undefined;
+
+  type ReadonlyUser = Readonly<User>;
+  type PartialUser = Partial<User>; // オプショナル化
+  type UserAge = Pick<User, 'age'>; // age だけを抽出
+  type UserName = Omit<User, 'age'>; // age を除外
+  type ExtractedUnion = Extract<Union, string | number>; // string と number のみを抽出
+  type ExcludedUnion = Exclude<Union, string | number>; // string と number を除く
+  type NonNullableUnion = NonNullable<Union>; // null と undefined を除く
+}
+
