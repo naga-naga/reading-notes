@@ -915,3 +915,23 @@
   type NonNullableUnion = NonNullable<Union>; // null と undefined を除く
 }
 
+// import/export
+import { userName, userAge, getUserInfo } from './user.js';
+import { counter, increment } from './counter.js';
+import type { Animal } from './animal.js';
+import * as john from './john.js';
+{
+  console.log(`Name: ${userName}, Age: ${userAge}`);
+  console.log(getUserInfo());
+
+  console.log(counter);
+  console.log(increment());
+
+  const cat: Animal = {
+    name: 'Whiskers',
+    age: 3,
+    species: 'Cat'
+  };
+
+  console.log(john);
+}
