@@ -935,3 +935,17 @@ import * as john from './john.js';
 
   console.log(john);
 }
+
+// Node.js のモジュール
+import { createInterface } from 'readline';
+{
+  const rl = createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+
+  rl.question('入力してください >>> ', (line) => {
+    console.log(`入力された内容: ${line}`);
+    rl.close();
+  });
+}
