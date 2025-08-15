@@ -975,3 +975,28 @@ import { performance } from 'perf_hooks';
   }
   console.log(`counter: ${count}`);
 }
+
+// Promise
+import fsPromise from 'fs/promises';
+{
+  const promise = fsPromise.readFile('./src/foo.txt', 'utf-8');
+
+  // promise.then((result) => {
+  //   console.log(`Promise result: ${result}`);
+  // });
+
+  // promise.catch((error) => {
+  //   console.log(`Promise error: ${error}`);
+  // });
+
+  // まとめて書ける
+  promise.then((result) => {
+    console.log('成功', result);
+  }, (error: unknown) => {
+    console.log('失敗', error);
+  });
+
+  promise.finally(() => {
+    console.log('Promise finished');
+  });
+}
