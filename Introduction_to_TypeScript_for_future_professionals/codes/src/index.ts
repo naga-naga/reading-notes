@@ -949,3 +949,29 @@ import { createInterface } from 'readline';
     rl.close();
   });
 }
+
+// 非同期処理
+import fs from 'fs';
+import { performance } from 'perf_hooks';
+{
+  setTimeout(() => {
+    console.log('done.');
+  }, 3000);
+
+  console.log('setTimeout()');
+
+  const startTime1 = performance.now();
+  fs.readFile('./src/foo.txt', 'utf-8', (err, result) => {
+    const endTime = performance.now();
+    console.log(`readFile: ${endTime - startTime1} ms`);
+  });
+
+  // 非同期処理は同期処理の完了を待つ
+  setTimeout(() => { console.log('100ms timer') }, 100);
+  const startTime2 = performance.now();
+  let count = 0;
+  while (performance.now() - startTime2 < 1000) {
+    count++;
+  }
+  console.log(`counter: ${count}`);
+}
