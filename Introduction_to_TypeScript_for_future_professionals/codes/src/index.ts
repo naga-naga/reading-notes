@@ -1000,3 +1000,122 @@ import fsPromise from 'fs/promises';
     console.log('Promise finished');
   });
 }
+
+// 自分で作る Promise
+{
+  const p = new Promise<number>((resolve) => {
+    setTimeout(() => {
+      resolve(42);
+    }, 3000);
+  });
+
+  p.then((result) => {
+    console.log(`result: ${result}`);
+  });
+
+  const sleep = (ms: number): Promise<void> => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  };
+
+  sleep(3000).then(() => {
+    console.log('sleep 3000');
+  });
+
+  const sleepReject = (ms: number): Promise<never> => {
+    return new Promise((_, reject) => {
+      setTimeout(reject, ms);
+    });
+  };
+
+  sleepReject(3000).catch(() => {
+    console.log('sleepReject 3000');
+  });
+
+  const resolvedPromise = Promise.resolve(100);
+  resolvedPromise.then((result) => {
+    console.log(`resolvedPromise: ${result}`);
+  });
+
+  const rejectedPromise = Promise.reject('Error occurred');
+  rejectedPromise.catch((error) => {
+    console.log(`rejectedPromise: ${error}`);
+  });
+
+  // Promise の組み合わせ
+  Promise.all([sleep(1000), sleep(2000), sleep(3000)]).then(() => {
+    console.log('All promises resolved');
+  });
+
+  Promise.all([sleep(1000), sleepReject(2000), sleep(3000)]).then(() => {
+    console.log('All promises resolved');
+  }).catch((error) => {
+    console.log(`Promise.all error: ${error}`);
+  });
+
+  Promise.race([sleep(1000), sleep(2000), sleep(3000)]).then(() => {
+    console.log('Race resolved');
+  });
+
+  Promise.allSettled([sleep(1000), sleepReject(2000), sleep(3000)]).then((results) => {
+    console.log(results);
+  });
+
+  Promise.any([sleep(1000), sleepReject(2000), sleep(3000)]).then((result) => {
+    console.log(`First resolved promise: ${result}`);
+  });
+
+  // Promise チェーン
+  const promiseChain1 = sleepReject(500);
+  const promiseChain2 = promiseChain1.catch(() => 'promiseChain1 rejected');
+  promiseChain2.then((result) => {
+    console.log(`promiseChain2 result: ${result}`);
+  });
+
+  sleepReject(500)
+    .catch(() => 'sleepReject rejected')
+    .then((result) => console.log(`sleepReject result: ${result}`));
+
+  const readFileMock = (mock: string): Promise<string> => new Promise<string>((resolve) => {
+    setTimeout(() => {
+      resolve(mock);
+    }, 1000);
+  });
+
+  const repeat10 = (str: string): Promise<string> => new Promise((resolve) => {
+    setTimeout(
+      () => resolve(str.repeat(10)),
+      500
+    );
+  });
+
+  readFileMock('Hello!')
+    .then((result) => repeat10(result))
+    .then((result) => {
+      console.log(`Final result: ${result}`);
+    });
+
+  readFileMock('Hello!')
+    .then((result) => {
+      throw new Error(`Error in promise chain: ${result}`);
+    })
+    .then((result) => {
+      console.log(`Result: ${result}`);
+    })
+    .catch((error) => {
+      console.log(`Caught error: ${error}`);
+    });
+
+  readFileMock('Hello!')
+    .then((result) => {
+      throw new Error('Error!!!');
+    })
+    .then((result) => {
+      console.log(`Result: ${result}`);
+    }, (error) => {
+      console.log(`Caught error: ${error}`);
+    });
+}
+
+console.log('--- The last line of index.ts ---');
