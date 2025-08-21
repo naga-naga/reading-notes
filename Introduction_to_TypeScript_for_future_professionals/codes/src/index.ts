@@ -1118,4 +1118,56 @@ import fsPromise from 'fs/promises';
     });
 }
 
+// async/await
+{
+  const get42: () => Promise<number> = async () => {
+    console.log('get42 called');
+    return 42;
+  };
+
+  get42().then((result) => {
+    console.log(`promise1 result: ${result}`);
+  });
+
+  const fail: () => Promise<never> = async () => {
+    throw new Error('async error');
+  };
+
+  fail().catch((error) => {
+    console.log(`fail() error: ${error}`);
+  });
+
+  const sleep: (ms: number) => Promise<void> = (ms: number) => {
+    return new Promise<void>((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  };
+
+  console.log('get3');
+  const get3 = async () => {
+    console.log('get3() called');
+    await sleep(3000);
+    console.log('await sleep(3000) called');
+    return 3;
+  };
+  get3().then((result) => {
+    console.log(`get3 result: ${result}`);
+  });
+
+  const awaitSum = async () => {
+    return await get3() + await get3() + await get3();
+  };
+  awaitSum().then((result) => {
+    console.log(`awaitSum result: ${result}`);
+  });
+
+  const awaitFail = async () => {
+    await fail(); // 例外が吐かれる
+    console.log('This will not be executed');
+  };
+  awaitFail().catch((error) => {
+    console.log(`awaitFail error: ${error}`);
+  });
+}
+
 console.log('--- The last line of index.ts ---');
