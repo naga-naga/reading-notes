@@ -19,5 +19,11 @@ export default tseslint.config([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
+    rules: {
+      semi: ['error', 'always'],
+      quotes: ['error', 'single'],
+      'jsx-quotes': ['error', 'prefer-single'],
+      'quote-props': ['error', 'as-needed'],
+    }
   },
 ])
