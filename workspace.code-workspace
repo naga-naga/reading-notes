@@ -36,6 +36,10 @@
       "name": "Introduction_to_TypeScript_for_future_professionals",
       "path": "./Introduction_to_TypeScript_for_future_professionals",
     },
+    {
+      "name": "Practical_Introduction_to_React_for_Beginners",
+      "path": "./Practical_Introduction_to_React_for_Beginners",
+    }
   ],
   "settings": {
     "files.exclude": {
@@ -47,6 +51,7 @@
       "The_Way_of_the_Web_Tester": true,
       "Web_API_The_Good_Parts": true,
       "Introduction_to_TypeScript_for_future_professionals": true,
+      "Practical_Introduction_to_React_for_Beginners": true,
     },
     "rubyLsp.formatter": "rubocop",
     "rubyLsp.rubyVersionManager": {
