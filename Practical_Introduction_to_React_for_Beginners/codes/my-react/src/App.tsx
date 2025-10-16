@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import reactLogo from './assets/react.svg';
+import { MyHello } from './components/MyHello';
 import viteLogo from '/vite.svg';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
       <p className='read-the-docs'>
         Click on the Vite and React logos to learn more
       </p>
+      <MyHello name='たろう' />
     </>
   );
 }
