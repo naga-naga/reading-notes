@@ -3,6 +3,7 @@ import './App.css';
 import reactLogo from './assets/react.svg';
 import { MyHello } from './components/MyHello';
 import viteLogo from '/vite.svg';
+import { EventBasic } from './components/EventBasic';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -30,6 +31,7 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
       <MyHello name='たろう' />
+      <EventBasic type='foo' />
     </>
   );
 }
