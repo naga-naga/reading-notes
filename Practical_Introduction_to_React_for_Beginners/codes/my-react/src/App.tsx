@@ -4,6 +4,7 @@ import reactLogo from './assets/react.svg';
 import { MyHello } from './components/MyHello';
 import viteLogo from '/vite.svg';
 import { EventBasic } from './components/EventBasic';
+import { StateBasic } from './components/StateBasic';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -32,6 +33,7 @@ function App() {
       </p>
       <MyHello name='たろう' />
       <EventBasic type='foo' />
+      <StateBasic initialCount={10} />
     </>
   );
 }
