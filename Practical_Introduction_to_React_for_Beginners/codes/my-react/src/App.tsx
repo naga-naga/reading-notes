@@ -7,6 +7,7 @@ import { EventBasic } from './components/EventBasic';
 import { StateBasic } from './components/StateBasic';
 import { BookList } from './components/BookList';
 import { books } from './fixtures/books';
+import { StateParent } from './components/StateParent';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -37,6 +38,7 @@ function App() {
       <EventBasic type='foo' />
       <StateBasic initialCount={10} />
       <BookList books={books} />
+      <StateParent />
     </>
   );
 }
