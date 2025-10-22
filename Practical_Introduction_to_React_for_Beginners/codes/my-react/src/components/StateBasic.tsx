@@ -9,10 +9,11 @@ export const StateBasic = ({ initialCount }: StateBasicProps) => {
   const [doubleCount, setDoubleCount] = useState(initialCount * 2);
 
   const handleClick = () => {
-    setCount(count + 1);
+    setCount(count => count + 1);
+    setCount(count => count + 1);
   };
   const handleDouble = () => {
-    setDoubleCount(doubleCount + 2);
+    setDoubleCount(doubleCount => doubleCount + 2);
   };
 
   return (
