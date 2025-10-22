@@ -5,6 +5,8 @@ import { MyHello } from './components/MyHello';
 import viteLogo from '/vite.svg';
 import { EventBasic } from './components/EventBasic';
 import { StateBasic } from './components/StateBasic';
+import { BookList } from './components/BookList';
+import { books } from './fixtures/books';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -34,6 +36,7 @@ function App() {
       <MyHello name='たろう' />
       <EventBasic type='foo' />
       <StateBasic initialCount={10} />
+      <BookList books={books} />
     </>
   );
 }
