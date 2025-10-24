@@ -11,6 +11,7 @@ import { StateParent } from './components/StateParent';
 import { EventMouse } from './components/EventMouse';
 import { EventKey } from './components/EventKey';
 import { EventPropagation } from './components/EventPropagation';
+import { EventOnce } from './components/EventOnce';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -45,6 +46,7 @@ function App() {
       <EventMouse before='マウスが離れています' after='マウスが乗っています' />
       <EventKey />
       <EventPropagation />
+      <EventOnce />
     </>
   );
 }
