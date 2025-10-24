@@ -9,6 +9,7 @@ import { BookList } from './components/BookList';
 import { books } from './fixtures/books';
 import { StateParent } from './components/StateParent';
 import { EventMouse } from './components/EventMouse';
+import { EventKey } from './components/EventKey';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -41,6 +42,7 @@ function App() {
       <BookList books={books} />
       <StateParent />
       <EventMouse before='マウスが離れています' after='マウスが乗っています' />
+      <EventKey />
     </>
   );
 }
