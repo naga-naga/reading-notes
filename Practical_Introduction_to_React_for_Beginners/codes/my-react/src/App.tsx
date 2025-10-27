@@ -1,18 +1,19 @@
 import { useState } from 'react';
 import './App.css';
 import reactLogo from './assets/react.svg';
-import { MyHello } from './components/MyHello';
-import viteLogo from '/vite.svg';
-import { EventBasic } from './components/EventBasic';
-import { StateBasic } from './components/StateBasic';
 import { BookList } from './components/BookList';
-import { books } from './fixtures/books';
-import { StateParent } from './components/StateParent';
-import { EventMouse } from './components/EventMouse';
+import { EventBasic } from './components/EventBasic';
 import { EventKey } from './components/EventKey';
-import { EventPropagation } from './components/EventPropagation';
+import { EventMouse } from './components/EventMouse';
 import { EventOnce } from './components/EventOnce';
+import { EventPropagation } from './components/EventPropagation';
+import { FormFile } from './components/FormFile';
+import { MyHello } from './components/MyHello';
+import { StateBasic } from './components/StateBasic';
 import { StateForm } from './components/StateForm';
+import { StateParent } from './components/StateParent';
+import { books } from './fixtures/books';
+import viteLogo from '/vite.svg';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -49,6 +50,7 @@ function App() {
       <EventPropagation />
       <EventOnce />
       <StateForm />
+      <FormFile />
     </>
   );
 }
