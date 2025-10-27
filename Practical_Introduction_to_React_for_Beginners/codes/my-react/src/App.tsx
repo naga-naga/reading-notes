@@ -12,6 +12,7 @@ import { EventMouse } from './components/EventMouse';
 import { EventKey } from './components/EventKey';
 import { EventPropagation } from './components/EventPropagation';
 import { EventOnce } from './components/EventOnce';
+import { StateForm } from './components/StateForm';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -47,6 +48,7 @@ function App() {
       <EventKey />
       <EventPropagation />
       <EventOnce />
+      <StateForm />
     </>
   );
 }
