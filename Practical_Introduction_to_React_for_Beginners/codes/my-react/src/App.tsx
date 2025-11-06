@@ -14,6 +14,7 @@ import { StateForm } from './components/StateForm';
 import { StateParent } from './components/StateParent';
 import { books } from './fixtures/books';
 import viteLogo from '/vite.svg';
+import { FormBasic } from './components/FormBasic';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -51,6 +52,7 @@ function App() {
       <EventOnce />
       <StateForm />
       <FormFile />
+      <FormBasic />
     </>
   );
 }
