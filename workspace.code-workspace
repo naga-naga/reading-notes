@@ -39,7 +39,11 @@
     {
       "name": "Practical_Introduction_to_React_for_Beginners",
       "path": "./Practical_Introduction_to_React_for_Beginners",
-    }
+    },
+    {
+      "name": "Terraform_Up_and_Running_3rd_edition",
+      "path": "./Terraform_Up_and_Running_3rd_edition",
+    },
   ],
   "settings": {
     "files.exclude": {
@@ -52,6 +56,7 @@
       "Web_API_The_Good_Parts": true,
       "Introduction_to_TypeScript_for_future_professionals": true,
       "Practical_Introduction_to_React_for_Beginners": true,
+      "Terraform_Up_and_Running_3rd_edition": true,
     },
     "rubyLsp.formatter": "rubocop",
     "rubyLsp.rubyVersionManager": {
