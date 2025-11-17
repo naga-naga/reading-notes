@@ -9,8 +9,9 @@ resource "aws_instance" "example" {
 
   user_data = <<-EOF
               #!/bin/bash
+              cd /home/ec2-user
               echo "Hello World" > index.html
-              nohup busybox httpd -f -p 8080 &
+              nohup python3 -m http.server 8080 &
               EOF
 
   user_data_replace_on_change = true
@@ -22,13 +23,11 @@ resource "aws_instance" "example" {
 
 resource "aws_security_group" "instance" {
   name = "terraform-example-instance"
-}
 
-resource "aws_vpc_security_group_ingress_rule" "allow_all_traffic_ipv4" {
-  security_group_id = aws_security_group.instance.id
-
-  from_port   = 8080
-  to_port     = 8080
-  ip_protocol = "tcp"
-  cidr_ipv4   = "0.0.0.0/0"
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
