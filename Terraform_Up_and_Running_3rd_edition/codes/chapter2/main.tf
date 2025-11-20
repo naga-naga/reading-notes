@@ -8,17 +8,20 @@ variable "server_port" {
   default     = 8080
 }
 
-resource "aws_launch_configuration" "example" {
-  image_id        = "ami-0e68e34976bb4db93"
-  instance_type   = "t3.micro"
-  security_groups = [aws_security_group.instance.id]
+resource "aws_launch_template" "example" {
+  name_prefix   = "terraform-example-"
+  image_id      = "ami-0e68e34976bb4db93"
+  instance_type = "t3.micro"
 
-  user_data = <<-EOF
+  vpc_security_group_ids = [aws_security_group.instance.id]
+
+  user_data = base64encode(<<-EOF
               #!/bin/bash
               cd /home/ec2-user
               echo "Hello World" > index.html
               nohup python3 -m http.server ${var.server_port} &
               EOF
+  )
 
   lifecycle {
     create_before_destroy = true
@@ -48,14 +51,18 @@ data "aws_subnets" "default" {
 }
 
 resource "aws_autoscaling_group" "example" {
-  launch_configuration = aws_launch_configuration.example.name
-  vpc_zone_identifier  = data.aws_subnets.default.ids
+  vpc_zone_identifier = data.aws_subnets.default.ids
 
   target_group_arns = [aws_lb_target_group.asg.arn]
   health_check_type = "ELB"
 
   min_size = 2
   max_size = 10
+
+  launch_template {
+    id      = aws_launch_template.example.id
+    version = "$Latest"
+  }
 
   tag {
     key                 = "Name"
