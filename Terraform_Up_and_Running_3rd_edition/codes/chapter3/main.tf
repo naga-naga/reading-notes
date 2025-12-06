@@ -1,12 +1,12 @@
-terraform {
-  backend "s3" {
-    bucket         = "naga-terraform-up-and-running-3rd-edition"
-    key            = "global/s3/terraform.tfstate"
-    region         = "ap-northeast-1"
-    dynamodb_table = "terraform-up-and-running-locks"
-    encrypt        = true
-  }
-}
+# terraform {
+#   backend "s3" {
+#     bucket         = "naga-terraform-up-and-running-3rd-edition"
+#     key            = "global/s3/terraform.tfstate"
+#     region         = "ap-northeast-1"
+#     dynamodb_table = "terraform-up-and-running-locks"
+#     encrypt        = true
+#   }
+# }
 
 provider "aws" {
   region = "ap-northeast-1"
@@ -16,9 +16,11 @@ resource "aws_s3_bucket" "terraform_state" {
   bucket = "naga-terraform-up-and-running-3rd-edition"
 
   # 削除を防止
-  lifecycle {
-    prevent_destroy = true
-  }
+  # lifecycle {
+  #   prevent_destroy = true
+  # }
+
+  # force_destroy = true
 }
 
 # バージョニング設定
