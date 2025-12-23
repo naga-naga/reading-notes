@@ -1,7 +1,7 @@
 # terraform {
 #   backend "s3" {
 #     bucket         = "naga-terraform-up-and-running-3rd-edition"
-#     key            = "global/s3/terraform.tfstate"
+#     key            = "workspace-example/terraform.tfstate"
 #     region         = "ap-northeast-1"
 #     dynamodb_table = "terraform-up-and-running-locks"
 #     encrypt        = true
