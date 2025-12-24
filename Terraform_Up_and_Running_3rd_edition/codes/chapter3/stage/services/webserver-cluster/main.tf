@@ -8,6 +8,26 @@
 #   }
 # }
 
+# s3バケットを作ると片付けるのが大変なのでlocalにしておく
+data "terraform_remote_state" "db" {
+  backend = "local"
+
+  config = {
+    path = "../../data-stores/mysql/terraform.tfstate"
+  }
+}
+
+# s3に作る場合はこんな感じ
+# data "terraform_remote_state" "db" {
+#   backend = "s3"
+
+#   config = {
+#     bucket = "naga-terraform-up-and-running-3rd-edition"
+#     key    = "stage/services/webserver-cluster/terraform.tfstate"
+#     region = "ap-northeast-1"
+#   }
+# }
+
 provider "aws" {
   region = "ap-northeast-1"
 }
@@ -19,13 +39,11 @@ resource "aws_launch_template" "example" {
 
   vpc_security_group_ids = [aws_security_group.instance.id]
 
-  user_data = base64encode(<<-EOF
-              #!/bin/bash
-              cd /home/ec2-user
-              echo "Hello World" > index.html
-              nohup python3 -m http.server ${var.server_port} &
-              EOF
-  )
+  user_data = base64encode(templatefile("user-data.sh", {
+    server_port = var.server_port
+    db_address  = data.terraform_remote_state.db.outputs.address
+    db_port     = data.terraform_remote_state.db.outputs.port
+  }))
 
   lifecycle {
     create_before_destroy = true
