@@ -12,8 +12,8 @@ data "terraform_remote_state" "db" {
 #   backend = "s3"
 
 #   config = {
-#     bucket = "naga-terraform-up-and-running-3rd-edition"
-#     key    = "stage/services/webserver-cluster/terraform.tfstate"
+#     bucket = var.db_remote_state_bucket
+#     key    = var.db_remote_state_key
 #     region = "ap-northeast-1"
 #   }
 # }
@@ -37,7 +37,7 @@ resource "aws_launch_template" "example" {
 }
 
 resource "aws_security_group" "instance" {
-  name = "terraform-example-instance"
+  name = "${var.cluster_name}-instance"
 
   ingress {
     from_port   = var.server_port
@@ -74,13 +74,13 @@ resource "aws_autoscaling_group" "example" {
 
   tag {
     key                 = "Name"
-    value               = "terraform-asg-example"
+    value               = "${var.cluster_name}-asg"
     propagate_at_launch = true
   }
 }
 
 resource "aws_security_group" "alb" {
-  name = "terraform-example-alb"
+  name = "${var.cluster_name}-alb"
 
   ingress {
     from_port   = 80
@@ -98,7 +98,7 @@ resource "aws_security_group" "alb" {
 }
 
 resource "aws_lb" "example" {
-  name               = "terraform-asg-sample"
+  name               = "${var.cluster_name}-lb"
   load_balancer_type = "application"
   subnets            = data.aws_subnets.default.ids
   security_groups    = [aws_security_group.alb.id]
@@ -121,7 +121,7 @@ resource "aws_lb_listener" "http" {
 }
 
 resource "aws_lb_target_group" "asg" {
-  name     = "terraform-asg-example"
+  name     = "${var.cluster_name}-lb"
   port     = var.server_port
   protocol = "HTTP"
   vpc_id   = data.aws_vpc.default.id

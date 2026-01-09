@@ -3,3 +3,18 @@ variable "server_port" {
   type        = number
   default     = 8080
 }
+
+variable "cluster_name" {
+  description = "クラスター名"
+  type        = string
+}
+
+variable "db_remote_state_bucket" {
+  description = "DBのremote_stateのバケット名"
+  type        = string
+}
+
+variable "db_remote_state_key" {
+  description = "DBのremote_stateのパス"
+  type        = string
+}
