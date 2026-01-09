@@ -21,7 +21,7 @@ data "terraform_remote_state" "db" {
 resource "aws_launch_template" "example" {
   name_prefix   = "terraform-example-"
   image_id      = "ami-0e68e34976bb4db93"
-  instance_type = "t3.micro"
+  instance_type = var.instance_type
 
   vpc_security_group_ids = [aws_security_group.instance.id]
 
@@ -64,8 +64,8 @@ resource "aws_autoscaling_group" "example" {
   target_group_arns = [aws_lb_target_group.asg.arn]
   health_check_type = "ELB"
 
-  min_size = 2
-  max_size = 10
+  min_size = var.min_size
+  max_size = var.max_size
 
   launch_template {
     id      = aws_launch_template.example.id

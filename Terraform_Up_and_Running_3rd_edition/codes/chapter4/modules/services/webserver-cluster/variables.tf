@@ -18,3 +18,18 @@ variable "db_remote_state_key" {
   description = "DBのremote_stateのパス"
   type        = string
 }
+
+variable "instance_type" {
+  description = "EC2インスタンスタイプ"
+  type        = string
+}
+
+variable "min_size" {
+  description = "ECSインスタンスの最小数"
+  type        = number
+}
+
+variable "max_size" {
+  description = "ECSインスタンスの最大数"
+  type        = number
+}
