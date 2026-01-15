@@ -1,0 +1,9 @@
+provider "aws" {
+  region = "ap-northeast-1"
+}
+
+# countを使うと配列扱いになることに注意
+resource "aws_iam_user" "example" {
+  count = length(var.user_names)
+  name  = var.user_names[count.index]
+}
