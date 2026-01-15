@@ -5,6 +5,9 @@ provider "aws" {
 module "webserver-cluster" {
   source = "../../../modules/services/webserver-cluster"
 
+  # gitのリポジトリを参照できる
+  # source = "github.com/brikis98/terraform-up-and-running-code//code/terraform/04-terraform-module/module-example/modules/services/webserver-cluster?ref=v0.3.0"
+
   cluster_name           = "webservers-stage"
   db_remote_state_bucket = "naga-terraform-up-and-running-3rd-edition"
   db_remote_state_key    = "stage/data-stores/mysql/terraform.tfstate"
