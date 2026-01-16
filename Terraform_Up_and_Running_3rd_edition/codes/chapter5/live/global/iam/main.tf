@@ -9,9 +9,15 @@ provider "aws" {
 # }
 
 # moduleにもcountは使える
-module "users" {
-  source = "../../../modules/landing-zone/iam-user"
+# module "users" {
+#   source = "../../../modules/landing-zone/iam-user"
 
-  count = length(var.user_names)
-  user_name = var.user_names[count.index]
+#   count = length(var.user_names)
+#   user_name = var.user_names[count.index]
+# }
+
+# for_eachでリソースを作る
+resource "aws_iam_user" "example" {
+  for_each = toset(var.user_names)
+  name     = each.value
 }

@@ -9,3 +9,15 @@
 #   value       = aws_iam_user.example[*].arn
 #   description = "全ユーザのARN"
 # }
+
+# ==========
+
+# for_eachの場合
+output "all_users" {
+  value = aws_iam_user.example
+}
+
+output "all_arns" {
+  # valuesはマップの値を返すらしい
+  value = values(aws_iam_user.example)[*].arn
+}
