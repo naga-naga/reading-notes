@@ -3,7 +3,15 @@ provider "aws" {
 }
 
 # countを使うと配列扱いになることに注意
-resource "aws_iam_user" "example" {
+# resource "aws_iam_user" "example" {
+#   count = length(var.user_names)
+#   name  = var.user_names[count.index]
+# }
+
+# moduleにもcountは使える
+module "users" {
+  source = "../../../modules/landing-zone/iam-user"
+
   count = length(var.user_names)
-  name  = var.user_names[count.index]
+  user_name = var.user_names[count.index]
 }
